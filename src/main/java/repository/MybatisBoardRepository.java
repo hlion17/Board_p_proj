@@ -77,4 +77,5 @@ public class MybatisBoardRepository implements BoardRepository {
         }
         sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
     }
+
 }
