@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="BoardMapper">
+    <insert id="write">
+        insert into bbs.public.bbs("boardTitle", "memberId", "boardDate", "boardContent") values (#{boardTitle},#{memberId},#{boardDate},#{boardContent});
+    </insert>
+    <select id="findById" resultType="model.Board">
+        select *
+        from bbs
+        where BBS.PUBLIC.BBS."boardId" = #{boardId};
+    </select>
+    <select id="findAll" resultType="model.Board">
+        select *
+        from bbs
+        where bbs."boardAvailable" = 1
+        order by bbs."boardId" desc;
+    </select>
+    <update id="delete">
+        update bbs
+        set "boardAvailable" = 0
+        where "boardId" = #{boardId};
+    </update>
+    <select id="getPageList" resultType="model.Board">
+        select *
+        from (select rownum num, bbs.PUBLIC.bbs.*
+              from BBS
+              where bbs.PUBLIC.BBS."boardAvailable" = 1
+              order by "boardId" desc)
+        where num between ${startIndex} and (${startIndex} + ${pageSize} - 1);
+    </select>
+    <update id="update">
+        update bbs set "boardTitle" = #{boardTitle}, "boardDate" = #{boardDate}, "boardContent" = #{boardContent} where "boardId" = #{boardId};
+    </update>
+</mapper>

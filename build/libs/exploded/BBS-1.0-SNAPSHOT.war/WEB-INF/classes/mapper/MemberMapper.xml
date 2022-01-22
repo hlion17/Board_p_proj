@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="MemberMapper">
+    <select id="findById" resultType="model.Member">
+        select *
+        from member
+        where memberId = #{memberId}
+    </select>
+    <select id="findAll" resultType="model.Member">
+        select *
+        from member;
+    </select>
+    <insert id="join">
+        insert into member
+        values (#{memberId}, #{memberPassword}, #{memberName}, #{memberGender}, #{memberEmail});
+    </insert>
+    <update id="update" parameterType="model.Member">
+        update bbs.PUBLIC.MEMBER
+        set MEMBERPASSWORD = #{memberPassword},
+            MEMBERNAME     = #{memberName},
+            MEMBERGENDER   = #{memberGender},
+            MEMBEREMAIL    = #{memberEmail}
+        where MEMBERID = #{memberId};
+    </update>
+    <delete id="delete">
+        delete
+        from member
+        where memberId = #{memberId};
+    </delete>
+</mapper>
