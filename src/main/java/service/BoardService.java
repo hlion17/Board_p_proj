@@ -46,6 +46,7 @@ public class BoardService {
         return "board/board";
     }
 
+    // 게시글 리스트 조회
     public String getPageList(Map<String, String> paramMap, Map<String, Object> model) {
 
         int listCtn = boardRepository.getList().size();
@@ -74,6 +75,28 @@ public class BoardService {
         model.put("pagination", pagination);
 
         return "board/board";
+    }
+
+    // 게시글 조회
+    public String getPost(Map<String, String> paramMap, Map<String, Object> model) {
+        int boardId = Integer.parseInt(paramMap.get("boardId"));
+
+        int listCtn = boardRepository.getList().size();
+        int curPage;
+
+        if (paramMap.get("curPage") != null) {
+            curPage = Integer.parseInt(paramMap.get("curPage"));
+        } else {
+            curPage = 1;
+        }
+
+        Pagination pagination = new Pagination(listCtn, curPage);
+        Board board = boardRepository.findById(boardId);
+
+        model.put("board", board);
+        model.put("pagination", pagination);
+
+        return "board/board-content";
     }
 
 

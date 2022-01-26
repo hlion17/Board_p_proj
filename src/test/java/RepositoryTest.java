@@ -1,11 +1,8 @@
 import model.Board;
 import model.Member;
 import model.Pagination;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
-import org.junit.platform.commons.logging.Logger;
-import org.junit.platform.commons.logging.LoggerFactory;
-import org.slf4j.spi.LoggerFactoryBinder;
+import org.junit.Test;
+import org.junit.jupiter.api.DisplayName;
 import repository.BoardRepository;
 import repository.MemberRepository;
 import repository.MybatisBoardRepository;
@@ -13,7 +10,8 @@ import repository.MybatisMemberRepository;
 
 import java.util.*;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.Assert.assertEquals;
+
 
 public class RepositoryTest {
 
@@ -21,7 +19,8 @@ public class RepositoryTest {
     private BoardRepository boardRepository = new MybatisBoardRepository();
 
     @Test
-    void findByIdTest() {
+    @DisplayName("아이디로 회원 찾기")
+    public void findByIdTest() {
         MemberRepository memberRepository = new MybatisMemberRepository();
 
         Member findMember = memberRepository.findById("root");
@@ -30,7 +29,7 @@ public class RepositoryTest {
     }
 
     @Test
-    void findAllTest() {
+    public void findAllTest() {
         MemberRepository memberRepository = new MybatisMemberRepository();
 
         List<Member> list = memberRepository.findAll();
@@ -40,7 +39,7 @@ public class RepositoryTest {
     }
 
     @Test
-    void joinTest() {
+    public void joinTest() {
         Member member = new Member("hlion21", "1234", "박자바", "남자", "jave@daum.net");
         memberRepository.join(member);
 
@@ -50,19 +49,19 @@ public class RepositoryTest {
     }
 
     @Test
-    void findAllBoards() {
+    public void findAllBoards() {
         List<Board> list = boardRepository.getList();
         System.out.println("list = " + list);
     }
 
     @Test
-    void findByIdBoard() {
+    public void findByIdBoard() {
         Board board = boardRepository.findById(1);
         System.out.println("board = " + board);
     }
 
     @Test
-    void boardWriteTest() {
+    public void boardWriteTest() {
         // Given
         Board board = new Board(
                 10,
@@ -82,7 +81,7 @@ public class RepositoryTest {
     }
 
     @Test
-    void deleteTest() {
+    public void deleteTest() {
         // Given
 
         // When
@@ -98,7 +97,7 @@ public class RepositoryTest {
     }
 
     @Test
-    void getPageListTest() {
+    public void getPageListTest() {
         // Given
 
         // When

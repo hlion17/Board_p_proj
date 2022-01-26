@@ -70,8 +70,11 @@
                         <tr>
                             <th scope="row" colspan="1" class="text-center">${board.boardId}</th>
                             <td colspan="5" class="text-left">
-                                <a style="text-decoration: none; color: #0f0f0f"
-                                   href="/views/board/board-content.jsp?boardId=${board.boardId}&curPage=${requestScope.pagination.curPage}">${board.boardTitle}</a>
+<%--                                <a style="text-decoration: none; color: #0f0f0f"--%>
+<%--                                   href="/views/board/board-content(backup).jsp?boardId=${board.boardId}&curPage=${requestScope.pagination.curPage}">${board.boardTitle}</a>--%>
+                                <%--현재 페이지의 request 정보를 어떻게 넘기지?--%>
+                                    <a style="text-decoration: none; color: #0f0f0f"
+                                   href="/board/post?boardId=${board.boardId}&curPage=${requestScope.pagination.curPage}">${board.boardTitle}</a>
                             </td>
                             <td colspan="2" class="text-center">${board.memberId}</td>
                             <td colspan="2" class="text-center">${board.boardDate}</td>

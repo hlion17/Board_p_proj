@@ -3,6 +3,16 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+<%
+    int boardId = Integer.parseInt(request.getParameter("boardId"));
+    Board board = new MybatisBoardRepository().findById(boardId);
+    String loginId = (String) session.getAttribute("loginId");
+    pageContext.setAttribute("board", board);
+
+    String curPage = request.getParameter("curPage");
+    pageContext.setAttribute("curPage", curPage);
+%>
+
 <html>
 <head>
     <meta charset="utf-8">
@@ -56,16 +66,16 @@
 
             <div class="row">
                 <div class="col-1 justify-content-start btn-group" role="group" aria-label="Basic outlined example">
-                    <a class="btn btn-primary" href="/board/list?curPage=${pagination.curPage}">목록으로</a>
+                    <a class="btn btn-primary" href="/board/list?curPage=${curPage}">목록으로</a>
                 </div>
 
 
-                <c:if test="${sessionScope.loginId eq board.memberId}">
+                <c:if test="${sessionScope.loginId eq pageScope.board.memberId}">
                     <div class="col-1 justify-content-start btn-group" role="group" aria-label="Basic outlined example">
                         <a class="btn btn-outline-primary" href="/views/board/board-update.jsp?boardId=${board.boardId}">수정</a>
                     </div>
                     <div class="col-1 justify-content-start btn-group" role="group" aria-label="Basic outlined example">
-                        <a class="btn btn-outline-primary" href="/board/delete?boardId=${board.boardId}">삭제</a>
+                        <a class="btn btn-outline-primary" href="/board/delete?boardId=${param.boardId}">삭제</a>
                     </div>
                 </c:if>
 
