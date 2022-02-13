@@ -8,6 +8,7 @@ import repository.MemberRepository;
 import repository.MybatisBoardRepository;
 import repository.MybatisMemberRepository;
 
+import java.sql.Date;
 import java.util.*;
 
 import static org.junit.Assert.assertEquals;
@@ -67,7 +68,7 @@ public class RepositoryTest {
                 10,
                 "이것은 제목",
                 "test1",
-                "2021-08-19",
+                new Date(Calendar.getInstance().getTimeInMillis()),
                 "이것은 내용",
                 1
         );

@@ -10,23 +10,23 @@
     </select>
     <select id="findAll" resultType="model.Member">
         select *
-        from member;
+        from member
     </select>
     <insert id="join">
         insert into member
-        values (#{memberId}, #{memberPassword}, #{memberName}, #{memberGender}, #{memberEmail});
+        values (#{memberId}, #{memberPassword}, #{memberName}, #{memberGender}, #{memberEmail})
     </insert>
     <update id="update" parameterType="model.Member">
-        update bbs.PUBLIC.MEMBER
+        update member
         set MEMBERPASSWORD = #{memberPassword},
             MEMBERNAME     = #{memberName},
             MEMBERGENDER   = #{memberGender},
             MEMBEREMAIL    = #{memberEmail}
-        where MEMBERID = #{memberId};
+        where MEMBERID = #{memberId}
     </update>
     <delete id="delete">
         delete
         from member
-        where memberId = #{memberId};
+        where memberId = #{memberId}
     </delete>
 </mapper>

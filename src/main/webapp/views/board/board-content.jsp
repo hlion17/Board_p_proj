@@ -2,6 +2,7 @@
 <%@ page import="repository.MybatisBoardRepository" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <html>
 <head>
@@ -54,11 +55,41 @@
                 </table>
             </div>
 
+            <%--댓글 구현--%>
+            <div class="container-fluid">
+                <table class="table">
+                    <c:if test="${sessionScope.loginId ne null}">
+                    <c:forEach var="comment" items="${comments}">
+                        <c:if test="${comment.deleteAt eq 1}">
+                        <tbody class="table-light">
+                        <tr>
+                            <td class="text-center" style="width: 200px;">${comment.writer}</td>
+                            <td colspan="4" class="text-left">${comment.content}</td>
+                            <td class="text-left"><fmt:formatDate value="${comment.createDate}" pattern="yyyy/MM/dd HH:mm"/></td>
+                        </tr>
+                        </tbody>
+                        </c:if>
+                    </c:forEach>
+                    </c:if>
+                </table>
+
+                <div class="container-fluid">
+                    <form class="row g-3" action="/comment/write" method="post">
+                        <div class="col-auto"><textarea class="form-control" name="content" cols="50" rows="3" style="resize: none;" placeholder="댓글을 입력하세요."></textarea></div>
+                        <div class="col-auto"><input class="btn btn-primary" type="submit"></div>
+
+                        <input type="text" name="boardId" hidden value="${board.boardId}">
+                        <input type="text" name="curPage" hidden value="${pagination.curPage}">
+                        <input type="text" name="writer" hidden value="${sessionScope.loginId}">
+                    </form>
+                </div>
+            </div>
+            <%--댓글 구현 끝--%>
+
             <div class="row">
                 <div class="col-1 justify-content-start btn-group" role="group" aria-label="Basic outlined example">
                     <a class="btn btn-primary" href="/board/list?curPage=${pagination.curPage}">목록으로</a>
                 </div>
-
 
                 <c:if test="${sessionScope.loginId eq board.memberId}">
                     <div class="col-1 justify-content-start btn-group" role="group" aria-label="Basic outlined example">

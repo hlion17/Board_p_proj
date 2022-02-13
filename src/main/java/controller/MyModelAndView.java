@@ -32,6 +32,10 @@ public class MyModelAndView {
         dispatcher.forward(request, response);
     }
 
+    public void redirect(HttpServletResponse response) throws IOException {
+        response.sendRedirect(viewName);
+    }
+
     private void modelToRequestAttribute(HttpServletRequest request, Map<String, Object> model) {
         model.forEach((key, value) -> request.setAttribute(key, value));
     }

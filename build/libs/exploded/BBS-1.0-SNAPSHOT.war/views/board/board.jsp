@@ -2,6 +2,7 @@
 <%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 
 <c:set var="deleteResult" value="${requestScope.deleteResult}"/>
@@ -77,7 +78,10 @@
                                    href="/board/post?boardId=${board.boardId}&curPage=${requestScope.pagination.curPage}">${board.boardTitle}</a>
                             </td>
                             <td colspan="2" class="text-center">${board.memberId}</td>
-                            <td colspan="2" class="text-center">${board.boardDate}</td>
+                            <%--형식 바꾸는 부분 java.utill.Date 에서 에러남 해결하기--%>
+                            <%--데이터 형식을 java.sql.Date로 바꿔서 해결--%>
+                            <td colspan="2" class="text-center"><fmt:formatDate value="${board.boardDate}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
+<%--                            <td colspan="2" class="text-center">${board.boardDate}</td>--%>
                             <td colspan="1" class="text-center">11</td>
                             <td colspan="1" class="text-center">22</td>
                         </tr>

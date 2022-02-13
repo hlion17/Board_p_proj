@@ -1,34 +1,27 @@
 package service;
 
 import model.Board;
+import model.Comment;
 import model.Pagination;
 import repository.BoardRepository;
+import repository.CommentRepository;
+import repository.ImplCommentRepository;
 import repository.MybatisBoardRepository;
 
-import java.util.Date;
+//import java.util.Date;
+import java.sql.Date;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 
 public class BoardService {
 
     BoardRepository boardRepository = new MybatisBoardRepository();
+    CommentRepository commentRepository = new ImplCommentRepository();
 
     public String write(Map<String, String> paramMap, Map<String, Object> model) {
 
-        Board board = new Board(
-                paramMap.get("boardTitle")
-                        .replaceAll(" ", "&nbsp;")
-                        .replaceAll("<", "&lt;")
-                        .replaceAll(">", "&gt")
-                        .replaceAll("\n", "<br>"),
-                paramMap.get("memberId"),
-                new Date().toString(),
-                paramMap.get("boardContent")
-                        .replaceAll(" ", "&nbsp;")
-                        .replaceAll("<", "&lt;")
-                        .replaceAll(">", "&gt")
-                        .replaceAll("\n", "<br>")
-        );
+        Board board = replaceSpChar(paramMap);
 
         boardRepository.write(board);
 
@@ -36,6 +29,8 @@ public class BoardService {
 
         return "redirect:/board/list";
     }
+
+
 
     public String getList(Map<String, String> paramMap, Map<String, Object> model) {
 
@@ -92,8 +87,10 @@ public class BoardService {
 
         Pagination pagination = new Pagination(listCtn, curPage);
         Board board = boardRepository.findById(boardId);
+        List<Comment> comments = commentRepository.findAllByBoardId(boardId);
 
         model.put("board", board);
+        model.put("comments", comments);
         model.put("pagination", pagination);
 
         return "board/board-content";
@@ -120,7 +117,7 @@ public class BoardService {
                         .replaceAll("<", "&lt;")
                         .replaceAll(">", "&gt")
                         .replaceAll("\n", "<br>"),
-                new Date().toString(),
+                new Date(Calendar.getInstance().getTimeInMillis()),
                 paramMap.get("boardContent")
                         .replaceAll(" ", "&nbsp;")
                         .replaceAll("<", "&lt;")
@@ -133,6 +130,26 @@ public class BoardService {
         model.put("updateResult", updateResult);
 
         return "redirect:/board/list";
+    }
+
+    // 특정 로직에 귀속되어 있다.
+    // 특수문자를 바꿔주는 기능을 아무데서나 쓸 수 있는 방법 생각해보자
+    private Board replaceSpChar(Map<String, String> paramMap) {
+        Board board = new Board(
+                paramMap.get("boardTitle")
+                        .replaceAll(" ", "&nbsp;")
+                        .replaceAll("<", "&lt;")
+                        .replaceAll(">", "&gt")
+                        .replaceAll("\n", "<br>"),
+                paramMap.get("memberId"),
+                new Date(Calendar.getInstance().getTimeInMillis()),
+                paramMap.get("boardContent")
+                        .replaceAll(" ", "&nbsp;")
+                        .replaceAll("<", "&lt;")
+                        .replaceAll(">", "&gt")
+                        .replaceAll("\n", "<br>")
+        );
+        return board;
     }
 
 

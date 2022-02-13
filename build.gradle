@@ -40,6 +40,9 @@ dependencies {
     // https://mvnrepository.com/artifact/com.h2database/h2
     testImplementation group: 'com.h2database', name: 'h2', version: '1.4.200'
 
+    // https://mvnrepository.com/artifact/com.oracle.database.jdbc/ojdbc11
+    implementation group: 'com.oracle.database.jdbc', name: 'ojdbc11', version: '21.1.0.0'
+
 
 }
 

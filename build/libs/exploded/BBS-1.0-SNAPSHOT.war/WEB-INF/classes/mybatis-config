@@ -12,15 +12,22 @@
 <!--                <property name="username" value="root"/>-->
 <!--                <property name="password" value="root"/>-->
 
-                <property name="driver" value="org.h2.Driver"/>
-                <property name="url" value="jdbc:h2:tcp://localhost:9092/~/bbs"/>
-                <property name="username" value="root"/>
-                <property name="password" value="root"/>
+<!--                <property name="driver" value="org.h2.Driver"/>-->
+<!--                <property name="url" value="jdbc:h2:tcp://localhost:9092/~/bbs"/>-->
+<!--                <property name="username" value="root"/>-->
+<!--                <property name="password" value="root"/>-->
+
+                <!--oracle 21c-->
+                <property name="driver" value="oracle.jdbc.driver.OracleDriver"/>
+                <property name="url" value="jdbc:oracle:thin:@//localhost:1521/xepdb1"/>
+                <property name="username" value="hlion17"/>
+                <property name="password" value="dudrms12"/>
             </dataSource>
         </environment>
     </environments>
     <mappers>
         <mapper resource="mapper/MemberMapper.xml"/>
         <mapper resource="mapper/BoardMapper.xml"/>
+        <mapper resource="mapper/CommentMapper.xml"/>
     </mappers>
 </configuration>
